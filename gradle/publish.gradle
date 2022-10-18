@@ -44,15 +44,15 @@ def isAndroid = project.hasProperty("android") ||
         project.getPlugins().hasPlugin('com.android.application') ||
         project.getPlugins().hasPlugin('com.android.library')
 if (isAndroid) {
-    task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.java.source
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-        getArchiveClassifier().set('javadoc')
-        from androidJavadocs.destinationDir
-    }
+//    task androidJavadocs(type: Javadoc) {
+//        source = android.sourceSets.main.java.source
+//        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    }
+//
+//    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+//        getArchiveClassifier().set('javadoc')
+//        from androidJavadocs.destinationDir
+//    }
 
     task androidSourcesJar(type: Jar) {
         getArchiveClassifier().set('sources')
@@ -61,7 +61,7 @@ if (isAndroid) {
 
     artifacts {
         archives androidSourcesJar
-        archives androidJavadocsJar
+//        archives androidJavadocsJar
     }
 } else {
     task sourceJar(type: Jar, dependsOn:classes) {
@@ -75,14 +75,14 @@ if (isAndroid) {
 //        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 //    }
 
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        getArchiveClassifier().set('javadoc') // classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
+//    task javadocJar(type: Jar, dependsOn: javadoc) {
+//        getArchiveClassifier().set('javadoc') // classifier = 'javadoc'
+//        from javadoc.destinationDir
+//    }
 
     artifacts {
-        archives javadocJar
         archives sourceJar
+//        archives javadocJar
     }
 }
 
@@ -99,12 +99,12 @@ afterEvaluate {
                     from components.release
 
                     artifact androidSourcesJar
-                    artifact androidJavadocsJar
+//                    artifact androidJavadocsJar
                 } else {
                     from components.java
 
                     artifact sourceJar
-                    artifact javadocJar
+//                    artifact javadocJar
                 }
 
                 pom {
